@@ -105,8 +105,11 @@ Task definition in order of priority
 - Create files
 - Main - buildDOM
 - Main - Build Splash
-- Main - addEventListener
+- Main - addEventListener to Start Button
 - Main - destroySplash
+- Main - Build Controls Menu
+- Main - addEventListener to Controls Button
+- Main - destroyControls
 - Game - buildDOM
 
 ## Links
