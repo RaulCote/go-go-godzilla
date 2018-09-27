@@ -45,11 +45,11 @@ Player {
   self.side
 }
 
-Godzilla.prototype.update();
-Godzilla.prototype.render();
-Godzilla.prototype.moves();
-Godzilla.prototype.isDead();
-Godzilla.prototype.scream();
+Player.prototype.update();
+Player.prototype.render();
+Player.prototype.moves();
+Player.prototype.isDead();
+Player.prototype.scream();
 
 ```
 
