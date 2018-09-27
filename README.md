@@ -1,12 +1,17 @@
 # Go Go Godzilla!
 
 ## Description
-**Go Go Godzilla!** is a simple game to put in practice some basic concepts from JavaScript 00P and Canvas. The concept is easy, it's a multiplayer game, almost a sumo simulator. Godzilla and Gamera will be pushing each other until any of them gets out of the scenary. The players will control one of the monsters just by pushing a key, it will make it move forward until they touch each other, at that moment the player that pushes harder, the player that will win. To make it fun, there's an extra key to make either Godzilla or Gamera scream.  
+**Go Go Godzilla!** is a game to put in practice some basic concepts from JavaScript 00P and Canvas. The concept is easy, it's a multiplayer game, almost a sumo simulator. Godzilla and Gamera will be pushing each other until any of them gets out of the scenary. The players will control one of the monsters just by pushing a key, it will make it move forward until they touch each other, at that moment the player that pushes harder, the player that will win. To make it fun, there's an extra key to make either Godzilla or Gamera scream.  
 
 
 ## MVP (DOM - CANVAS)
 The MVP version will be the concept itself working. One object pushing the other until one it's out of screen, next step is put Canvas to work on it and give it graphical appareance and sounds.
 
+- Create Godzilla
+- Create Gamera
+- Make them move
+- Collision between Godzilla & Gamera
+- Collision with screen border
 
 ## Backlog
 - Add points
@@ -65,7 +70,7 @@ Game.prototype._startLoop {
 Game.prototype._updateAll
 Game.prototype._renderAll
 Game.prototype._clearAll
-¿Game.prototype._checkAllCollision?
+Game.prototype._checkAllCollision
 Game.prototype._isPlayerAlive
 Game.prototype.onOver
 Game.prototype.destroy
@@ -73,7 +78,7 @@ Game.prototype.destroy
 ```
 
 
-## States y States Transitions
+## States and States Transitions
 Definition of the different states and their transition (transition functions)
 ```javascript
 - splashScreen
@@ -113,7 +118,7 @@ Task definition in order of priority
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](https://github.com/RaulCote)
+[Link Repo](https://github.com/RaulCote/go-go-godzilla)
 [Link Deploy](http://github.com)
 
 
