@@ -35,15 +35,16 @@ Player.prototype.moves = function() {
       player.push = 1;
     }
   }
-  document.addEventListener('keyup', self.handleKeyUp)
-
+  document.addEventListener('keydown', self.handleKeyDown)
+  
   self.handleKeyUp = function(evt) {
     if (evt.key === "ArrowUp" && player.push === 1)  {
       player.push = 0;
     }
   } 
-  document.addEventListener('keydown', self.handleKeyDown)
+  document.addEventListener('keyup', self.handleKeyUp)
 }
+
   
 
 
