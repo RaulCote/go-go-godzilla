@@ -9,7 +9,8 @@ function Player() {
  // self.ctx = canvas.getContext('2d');
 };
 
-var player = new Player;
+var godzilla = new Player;
+var gamera = new Player;
 
 // Player.prototype.update = function() {
 //   var self = this;
@@ -24,22 +25,34 @@ Player.prototype.start = function() {
   self.moves();
 }
 
+Player.prototype.update = function() {
+  
+}
+
 Player.prototype.moves = function() {
   var self = this; 
 
   self.handleKeyDown = function(evt) {
-    if (evt.key === "ArrowUp" && player.push === 0) {
-      player.vel++;
-      console.log(player.vel)
-      player.x += 0.1;
-      player.push = 1;
+    if (evt.key === "ArrowUp" && godzilla.push === 0) {
+      godzilla.vel++;
+      console.log(godzilla.vel)
+     // godzilla.x += 0.1;
+      godzilla.push = 1;
+    }
+    else if (evt.key === "ArrowDown" && gamera.push === 0) {
+      gamera.vel++;
+      console.log(gamera.vel)
+      gamera.push = 1
     }
   }
   document.addEventListener('keydown', self.handleKeyDown)
   
   self.handleKeyUp = function(evt) {
-    if (evt.key === "ArrowUp" && player.push === 1)  {
-      player.push = 0;
+    if (evt.key === "ArrowUp" && godzilla.push === 1)  {
+      godzilla.push = 0;
+    }
+    else if (evt.key === "ArrowDown" && gamera.push === 1) {
+      gamera.push = 0;
     }
   } 
   document.addEventListener('keyup', self.handleKeyUp)
