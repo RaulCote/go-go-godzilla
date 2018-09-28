@@ -17,6 +17,9 @@ function main() {
   var startGame = function() {
     destroySplash();
     buildGame();
+// ----------- T E S T I N G --------------- // Delete the following two lines
+    player = new Player();
+    player.start();
   }
   
   var controlsGame = function() {
@@ -73,7 +76,7 @@ function destroyControls() {
   controlsElement.remove();
 }
 
-// function buildGame() {}
+function buildGame() {}
 // function destroyGame() {}
 // function buildGameOver() {}
 // function destroyGameOver() {}
