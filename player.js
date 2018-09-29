@@ -9,59 +9,54 @@ function Player() {
  // self.ctx = canvas.getContext('2d');
 };
 
-var godzilla = new Player;
-var gamera = new Player;
+// var godzilla = new Player;
+// var gamera = new Player;
+
+// Player.prototype.start = function() {
+//   var self = this;
+
+
+//   self.update();
+//   self.moves();
+// }
 
 // Player.prototype.update = function() {
 //   var self = this;
-
-//   player.x += player.vel
+//    godzilla.x = godzilla.vel/10
   
-// }
+// };
 
-Player.prototype.start = function() {
-  var self = this;
+// Player.prototype.moves = function() {
+//   var self = this; 
 
-  self.moves();
-}
-
-Player.prototype.update = function() {
+//   self.handleKeyDown = function(evt) {
+//     if (evt.key === "ArrowLeft" && godzilla.push === 0) {
+//       godzilla.vel++;
+//       console.log(godzilla.vel)
+//     //  godzilla.x = godzilla.vel/10
+//       godzilla.push = 1;
+//     }
+//     else if (evt.key === "ArrowRight" && gamera.push === 0) {
+//       gamera.vel++;
+//       console.log(gamera.vel)
+//       gamera.push = 1
+//     }
+//   }
+//   document.addEventListener('keydown', self.handleKeyDown)
   
-}
-
-Player.prototype.moves = function() {
-  var self = this; 
-
-  self.handleKeyDown = function(evt) {
-    if (evt.key === "ArrowUp" && godzilla.push === 0) {
-      godzilla.vel++;
-      console.log(godzilla.vel)
-     // godzilla.x += 0.1;
-      godzilla.push = 1;
-    }
-    else if (evt.key === "ArrowDown" && gamera.push === 0) {
-      gamera.vel++;
-      console.log(gamera.vel)
-      gamera.push = 1
-    }
-  }
-  document.addEventListener('keydown', self.handleKeyDown)
-  
-  self.handleKeyUp = function(evt) {
-    if (evt.key === "ArrowUp" && godzilla.push === 1)  {
-      godzilla.push = 0;
-    }
-    else if (evt.key === "ArrowDown" && gamera.push === 1) {
-      gamera.push = 0;
-    }
-  } 
-  document.addEventListener('keyup', self.handleKeyUp)
-}
+//   self.handleKeyUp = function(evt) {
+//     if (evt.key === "ArrowLeft" && godzilla.push === 1)  {
+//       godzilla.push = 0;
+//     }
+//     else if (evt.key === "ArrowRight" && gamera.push === 1) {
+//       gamera.push = 0;
+//     }
+//   } 
+//   document.addEventListener('keyup', self.handleKeyUp)
+// };
 
   
 
-
-// Player.prototype.moves();   <---- Cada uno tiene una dirección diferente. ¿Deben ir por separado?
 // Player.prototype.isDead();
 // Player.prototype.scream();
 
