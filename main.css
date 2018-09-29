@@ -15,4 +15,34 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
+} 
+
+/* --- layout --- */
+
+#main-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Components */
+
+.game {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.game__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game__canvas {
+  width: 100%;
+  height: 100%;
 }

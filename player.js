@@ -56,6 +56,11 @@ function Player() {
 // };
 
   
+// Player.prototype.render() = function() {
+//   var self = this;
+
+//   self.ctx.fillRect(self.x, self.y, self.size, self.size)
+// }
 
 // Player.prototype.isDead();
 // Player.prototype.scream();
