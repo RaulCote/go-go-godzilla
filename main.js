@@ -73,15 +73,58 @@ function destroyControls() {
   controlsElement.remove();
 }
 
+// var game = null;
+// var handleGameOver = function() {
+//   destroyGame();
+//   buildGameover(game.score);
+// }
+
 function buildGame() {
-  game = new Game(mainContainerElement)
+  game = new Game(mainContainerElement);
+  // game.onOver(handleGameOver);
 }
-// function destroyGame() {}
-// function buildGameOver() {}
-// function destroyGameOver() {}
+
+// function destroyGame() {
+//   game.destroy();
+// }
+
+// var gameoverElement = null;
+// var gameoverButton = null;
+
+//  function handleGameoverClick() {
+//   destroyGameover();
+//   buildSplash();
+// }
+
+// function buildGameover(score) {
+//   gameoverElement = buildDom(`
+//   <main class="gameover container">
+//   <h1>Game over</h1>
+//   <p>Your score: <span class="score"></span></p>
+//   <button>Restart</button>
+//   </main>
+//   `);
+//   mainContainerElement.appendChild(gameoverElement);
+  
+//   gameoverButton = document.querySelector('button');
+//   gameoverButton.addEventListener('click', handleGameoverClick);
+  
+//   var scoreElement = document.querySelector('.score');
+//   scoreElement.innerText = score;
+// }
+
+// function destroyGameover() {
+//   gameoverButton.removeEventListener('click', handleGameoverClick);
+//   gameoverElement.remove();
+// }
 
 buildSplash();
 
 }
 
 document.addEventListener('DOMContentLoaded', main);
+
+
+// function destroyGame() {}
+// function buildGameOver() {}
+// function destroyGameOver() {}

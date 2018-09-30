@@ -6,7 +6,7 @@ function Player() {
   self.vel = 0;
   self.push = 0;
  // self.side <---- Meter en cada uno de ellos
- // self.ctx = canvas.getContext('2d');
+  // self.ctx = canvas.getContext('2d');
 };
 
 // var godzilla = new Player;
