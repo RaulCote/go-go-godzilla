@@ -1,27 +1,35 @@
-function Player(canvasElement, y, x) {
+function Player(canvasElement, canvasHeight, canvasWidth, side) {
   var self = this;
-  self.x = 0;
-  self.y = 0;
+  self.canvasHeight = canvasHeight;
+  self.canvasWidth = canvasWidth;
   self.size = 60;
   self.vel = 0;
   self.push = 0;
-  self.side;
+  self.strength
+  self.side = side;
   self.ctx = canvasElement.getContext('2d');
-  self.canvasX = x;
-  self.canvasY = y;
+  self.x = 0;
+  self.y = self.canvasHeight - self.size;
+
+  if (self.side === 'left') {
+    self.x = 0;
+  } else if (self.side === 'right') {
+    self.x = self.canvasWidth - self.size;
+
+  }
+ // self.canvasY = y;
 };
 
 Player.prototype.update = function() {
   var self = this;
 
-  self.y = self.canvasY - self.size;
-
+//  self.y = self.canvasY - self.size;
   if (self.side === 'left') {
     self.x = self.vel*10;
   }
   else if (self.side === 'right') {
-    self.x = self.canvasX - self.size;
-    self.x = (self.canvasX - self.size) - self.vel*10;
+    self.x = self.canvasWidth - self.size;
+    self.x = (self.canvasWidth - self.size) - self.vel*10;
   }
 }
 
@@ -39,20 +47,21 @@ Player.prototype.render = function() {
 
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }
-// Player.prototype.checkCollision = function(object) {
-//   var self = this;
 
-//   var crashRight = self.x + self.size > object.x;
-//   var crashBottom = self.y + self.size > object.y;
-//   var crashTop = self.y < object.y + object.size;
-//   var crashLeft = self.x < object.x + object.size;
+Player.prototype.checkCollision = function(object) {
+  var self = this;
 
-//   if (crashLeft & crashRight % crashTop & crashBottom) {
-//     console.log('collision!')
-//     return true;
-//   }
-//   return false
-// }
+  var crashRight = self.x + self.size > object.x;
+  var crashBottom = self.y + self.size > object.y;
+  var crashTop = self.y < object.y + object.size;
+  var crashLeft = self.x < object.x + object.size;
+
+  if (crashLeft && crashRight && crashTop && crashBottom) {
+    //console.log('collision!')
+   return true;
+  }
+ return false
+}
 
 // var godzilla = new Player;
 // var gamera = new Player;
