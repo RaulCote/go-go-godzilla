@@ -65,13 +65,16 @@ Game.prototype._startLoop = function() {
   var self = this;
 
   self.godzilla = new Player(self.canvasElement); 
-  self.gamera = new Player();
+  self.gamera = new Player(self.canvasElement);
   
   self.godzilla.score = 2;
   self.gamera.score = 22;
   self.godzilla.coolness = 10000;
   self.gamera.coolness = -5000;
   self.round = 1;
+  self.godzilla.y = self.canvasElement.height - self.godzilla.size
+  self.gamera.x = self.canvasElement.width - self.gamera.size
+  self.gamera.y = self.canvasElement.height - self.gamera.size
 
   self._moves();
 
@@ -105,13 +108,14 @@ Game.prototype._moves = function() {
     if (evt.key === "ArrowLeft" && self.godzilla.push === 0) {
       self.godzilla.vel++;
       console.log(self.godzilla.vel + ' vel is going Up! IM GODZILLLLA!!!!')
-      self.godzilla.x = self.godzilla.vel
-      self.round = self.godzilla.vel // PRUEBA PARA GAME OVER
+      // self.godzilla.x = self.godzilla.vel*10
+     // self.round = self.godzilla.vel // PRUEBA PARA GAME OVER
       self.godzilla.push = 1;
     }
     else if (evt.key === "ArrowRight" && self.gamera.push === 0) {
       self.gamera.vel++;
-      console.log(self.gamera.vel)
+      // self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
+      // console.log(self.gamera.vel)
       self.gamera.push = 1
     }
 
@@ -129,6 +133,14 @@ Game.prototype._moves = function() {
   document.addEventListener('keyup', self.handleKeyUp)
 };
 
+Game.prototype._updateAll = function() {
+  var self = this;
+
+  self.godzilla.x = self.godzilla.vel*10
+
+  self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
+  
+}
 
 Game.prototype._renderAll = function() {
   var self = this;
@@ -138,6 +150,9 @@ Game.prototype._renderAll = function() {
     self.godzilla.ctx.fillRect(self.godzilla.x, self.godzilla.y, self.godzilla.size, self.godzilla.size);
     // }
     // renderGodzilla();
+    self.gamera.ctx = self.canvasElement.getContext('2d');
+    self.gamera.ctx.fillStyle = 'red';
+    self.gamera.ctx.fillRect(self.gamera.x, self.gamera.y, self.gamera.size, self.gamera.size);
   }
 
   Game.prototype._clearAll = function ()  {
@@ -145,17 +160,26 @@ Game.prototype._renderAll = function() {
     // Recuerda, en _renderAll funciona con Godzilla pero todavía no actualiza, aquí no, aquí como self.ctx.clearRect
     self.ctx.clearRect(0, 0, self.width, self.height);
   }
-  
-Game.prototype._updateUI = function() {
-  var self = this;
-  
-  self.roundElement.innerText = self.round;
-  self.godzillaScoreElement.innerText = self.godzilla.score;
-  self.godzillaCoolnessElement.innerText = self.godzilla.coolness;
-  self.gameraScoreElement.innerText = self.gamera.score;
-  self.gameraCoolnessElement.innerText = self.gamera.coolness;
 
-}
+  Game.prototype._checkAllCollision = function() {
+    var self = this;
+
+
+
+  }
+
+
+  
+  Game.prototype._updateUI = function() {
+    var self = this;
+    
+    self.roundElement.innerText = self.round;
+    self.godzillaScoreElement.innerText = self.godzilla.score;
+    self.godzillaCoolnessElement.innerText = self.godzilla.coolness;
+    self.gameraScoreElement.innerText = self.gamera.score;
+    self.gameraCoolnessElement.innerText = self.gamera.coolness;
+
+  }
 
 
 

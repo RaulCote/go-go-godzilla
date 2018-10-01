@@ -9,6 +9,22 @@ function Player() {
   // self.ctx = canvas.getContext('2d');
 };
 
+
+// Player.prototype.checkCollision = function(object) {
+//   var self = this;
+
+//   var crashRight = self.x + self.size > object.x;
+//   var crashBottom = self.y + self.size > object.y;
+//   var crashTop = self.y < object.y + object.size;
+//   var crashLeft = self.x < object.x + object.size;
+
+//   if (crashLeft & crashRight % crashTop & crashBottom) {
+//     console.log('collision!')
+//     return true;
+//   }
+//   return false
+// }
+
 // var godzilla = new Player;
 // var gamera = new Player;
 
