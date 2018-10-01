@@ -1,15 +1,44 @@
-function Player() {
+function Player(canvasElement, y, x) {
   var self = this;
   self.x = 0;
   self.y = 0;
   self.size = 60;
   self.vel = 0;
   self.push = 0;
- // self.side <---- Meter en cada uno de ellos
-  // self.ctx = canvas.getContext('2d');
+  self.side;
+  self.ctx = canvasElement.getContext('2d');
+  self.canvasX = x;
+  self.canvasY = y;
 };
 
+Player.prototype.update = function() {
+  var self = this;
 
+  self.y = self.canvasY - self.size;
+
+  if (self.side === 'left') {
+    self.x = self.vel*10;
+  }
+  else if (self.side === 'right') {
+    self.x = self.canvasX - self.size;
+    self.x = (self.canvasX - self.size) - self.vel*10;
+  }
+}
+
+
+Player.prototype.render = function() {
+  var self = this;
+
+  if (self.side === 'left') {
+    self.ctx.fillStyle = 'white';
+  }
+
+  else if (self.side === 'right') {
+    self.ctx.fillStyle = 'red';
+  }
+
+  self.ctx.fillRect(self.x, self.y, self.size, self.size);
+}
 // Player.prototype.checkCollision = function(object) {
 //   var self = this;
 

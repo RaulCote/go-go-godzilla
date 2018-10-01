@@ -63,18 +63,21 @@ Game.prototype._init = function() {
 
 Game.prototype._startLoop = function() {
   var self = this;
-
-  self.godzilla = new Player(self.canvasElement); 
-  self.gamera = new Player(self.canvasElement);
+              // Son los argumentos del Player(canvasElement, y, x)
+  self.godzilla = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width); 
+  self.gamera = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width);
   
+  self.godzilla.side = 'left';
+  self.gamera.side = 'right';
   self.godzilla.score = 2;
   self.gamera.score = 22;
   self.godzilla.coolness = 10000;
   self.gamera.coolness = -5000;
   self.round = 1;
-  self.godzilla.y = self.canvasElement.height - self.godzilla.size
-  self.gamera.x = self.canvasElement.width - self.gamera.size
-  self.gamera.y = self.canvasElement.height - self.gamera.size
+  //    ---- Ya pasado a Player()
+  // self.godzilla.y = self.canvasElement.height - self.godzilla.size
+  // self.gamera.x = self.canvasElement.width - self.gamera.size
+  // self.gamera.y = self.canvasElement.height - self.gamera.size
 
   self._moves();
 
@@ -93,11 +96,6 @@ Game.prototype._startLoop = function() {
   requestAnimationFrame(loop);
 }
 
-Game.prototype._updateAll = function() {
-  var self = this;
-//  self._moves();
-  self._updateUI();
-}
 
 
 Game.prototype._moves = function() {
@@ -136,23 +134,29 @@ Game.prototype._moves = function() {
 Game.prototype._updateAll = function() {
   var self = this;
 
-  self.godzilla.x = self.godzilla.vel*10
+  // self.godzilla.x = self.godzilla.vel*10
 
-  self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
+  //self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
   
+  self.godzilla.update();
+  self.gamera.update();
 }
 
 Game.prototype._renderAll = function() {
   var self = this;
-  // function renderGodzilla() {
-    self.godzilla.ctx = self.canvasElement.getContext('2d');
-    self.godzilla.ctx.fillStyle = 'white';
-    self.godzilla.ctx.fillRect(self.godzilla.x, self.godzilla.y, self.godzilla.size, self.godzilla.size);
-    // }
-    // renderGodzilla();
-    self.gamera.ctx = self.canvasElement.getContext('2d');
-    self.gamera.ctx.fillStyle = 'red';
-    self.gamera.ctx.fillRect(self.gamera.x, self.gamera.y, self.gamera.size, self.gamera.size);
+  self._updateUI();
+  self.godzilla.render();
+  self.gamera.render();
+
+    // ---- Ya pasado a Player()
+    // self.godzilla.ctx = self.canvasElement.getContext('2d');
+    // self.godzilla.ctx.fillStyle = 'white';
+    // self.godzilla.ctx.fillRect(self.godzilla.x, self.godzilla.y, self.godzilla.size, self.godzilla.size);
+    
+    // ---- Ya pasado a Player()
+    // self.gamera.ctx = self.canvasElement.getContext('2d');
+    // self.gamera.ctx.fillStyle = 'red';
+    // self.gamera.ctx.fillRect(self.gamera.x, self.gamera.y, self.gamera.size, self.gamera.size);
   }
 
   Game.prototype._clearAll = function ()  {
