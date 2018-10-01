@@ -73,50 +73,61 @@ function destroyControls() {
   controlsElement.remove();
 }
 
-// var game = null;
-// var handleGameOver = function() {
-//   destroyGame();
-//   buildGameover(game.score);
-// }
+var game = null;
+function handleGameOver() {
+  destroyGame();
+ buildGameover(game.godzilla.score, game.gamera.score, game.godzilla.coolness, game.gamera.coolness);
+}
 
 function buildGame() {
   game = new Game(mainContainerElement);
-  // game.onOver(handleGameOver);
+  game.onOver(handleGameOver);
 }
 
-// function destroyGame() {
-//   game.destroy();
-// }
+function destroyGame() {
+  game.destroy();  // Temporalmente.
+  console.log('destroy')
+}
 
-// var gameoverElement = null;
-// var gameoverButton = null;
+var gameoverElement = null;
+var gameoverButton = null;
 
-//  function handleGameoverClick() {
-//   destroyGameover();
-//   buildSplash();
-// }
+var handleGameoverClick = function() {
+  destroyGameover();
+  buildSplash();
+}
 
-// function buildGameover(score) {
-//   gameoverElement = buildDom(`
-//   <main class="gameover container">
-//   <h1>Game over</h1>
-//   <p>Your score: <span class="score"></span></p>
-//   <button>Restart</button>
-//   </main>
-//   `);
-//   mainContainerElement.appendChild(gameoverElement);
+function buildGameover() {
+  gameoverElement = buildDom(`
+  <main class="gameover container">
+  <h1>Game over</h1>
+  <p>Godzilla score: <span class="godzilla-score"></span></p>
+  <p>Godzilla coolness: <span class="godzilla-coolness"></span></p>
+  <p>Gamera score: <span class="gamera-score"></span></p>
+  <p>Gamera coolness: <span class="gamera-coolness"></span></p>
+  <button>Restart</button>
+  </main>
+  `);
+  mainContainerElement.appendChild(gameoverElement);
   
-//   gameoverButton = document.querySelector('button');
-//   gameoverButton.addEventListener('click', handleGameoverClick);
+  gameoverButton = document.querySelector('button');
+  gameoverButton.addEventListener('click', handleGameoverClick);
   
-//   var scoreElement = document.querySelector('.score');
-//   scoreElement.innerText = score;
-// }
+  var scoreGodzillaElement = document.querySelector('.godzilla-score');
+  scoreGodzillaElement.innerText = game.godzilla.score;
+  var coolnessGodzillaElement = document.querySelector('.godzilla-coolness');
+  coolnessGodzillaElement.innerText = game.godzilla.coolness;
 
-// function destroyGameover() {
-//   gameoverButton.removeEventListener('click', handleGameoverClick);
-//   gameoverElement.remove();
-// }
+  var scoreGameraElement = document.querySelector('.gamera-score');
+  scoreGameraElement.innerText = game.gamera.score;
+  var coolnessGameraElement = document.querySelector('.gamera-coolness');
+  coolnessGameraElement.innerText = game.gamera.coolness;
+}
+
+function destroyGameover() {
+  gameoverButton.removeEventListener('click', handleGameoverClick);
+  gameoverElement.remove();
+}
 
 buildSplash();
 

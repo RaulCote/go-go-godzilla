@@ -36,7 +36,6 @@ Game.prototype._init = function() {
       <div class="game__canvas">
         <canvas class="canvas"></canvas>
       </div>
-      <button class="button game-over">Game Over</button>
     </main>
   `)
   self.parentElement.appendChild(self.gameElement);
@@ -60,8 +59,6 @@ Game.prototype._init = function() {
 
   self.ctx = self.canvasElement.getContext('2d');
 
-  // self.gameoverButtonElement = document.querySelector('.game-over');
-  // self.gameoverButtonElement.addEventListener('click', handleGameOverClick)
 }
 
 Game.prototype._startLoop = function() {
@@ -70,10 +67,10 @@ Game.prototype._startLoop = function() {
   self.godzilla = new Player(self.canvasElement); 
   self.gamera = new Player();
   
-  self.godzilla.score = 0;
-  self.gamera.score = 0;
-  self.godzilla.coolness = 0;
-  self.gamera.coolness = 0;
+  self.godzilla.score = 2;
+  self.gamera.score = 22;
+  self.godzilla.coolness = 10000;
+  self.gamera.coolness = -5000;
   self.round = 1;
 
   self._moves();
@@ -86,8 +83,7 @@ Game.prototype._startLoop = function() {
     if (self.round <= 3) {
       requestAnimationFrame(loop);
     } else {
-      // self.onGameOverCallback();
-      requestAnimationFrame(loop);
+      self.onGameOverCallback();
     }
   }
   
@@ -110,6 +106,7 @@ Game.prototype._moves = function() {
       self.godzilla.vel++;
       console.log(self.godzilla.vel + ' vel is going Up! IM GODZILLLLA!!!!')
       self.godzilla.x = self.godzilla.vel
+      self.round = self.godzilla.vel // PRUEBA PARA GAME OVER
       self.godzilla.push = 1;
     }
     else if (evt.key === "ArrowRight" && self.gamera.push === 0) {
@@ -166,20 +163,21 @@ Game.prototype._updateUI = function() {
 
 //////////////// GAME OVER
 
-// Game.prototype.onOver = function(callback) {
-//   var self = this;
+Game.prototype.onOver = function(callback) {
+  var self = this;
 
-//   self.onGameOverCallback = callback;
-// }
+  self.onGameOverCallback = callback;
+}
 
 
-// Game.prototype.destroy = function() {
-//   var self = this;
+Game.prototype.destroy = function() {
+  var self = this;
 
-//   self.gameElement.remove();
+  self.gameElement.remove();
 
-//   document.removeEventListener('keydown', self.handleKeyDown);
-//   document.removeEventListener('keyup', self.handleKeyUp);
-// }
+  document.removeEventListener('keydown', self.handleKeyDown);
+  document.removeEventListener('keyup', self.handleKeyUp);
+
+}
 
  
