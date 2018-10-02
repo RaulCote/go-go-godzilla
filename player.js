@@ -1,12 +1,14 @@
-function Player(canvasElement, canvasHeight, canvasWidth, side) {
+function Player(canvasElement, canvasHeight, canvasWidth, side, fighterSide) {
   var self = this;
   self.canvasHeight = canvasHeight;
   self.canvasWidth = canvasWidth;
-  self.size = 60;
+  self.size = 251;
   self.vel = 0;
   self.push = 0;
-  self.strength
+  self.strength = 0;
+  self.fighting = 0;
   self.side = side;
+  self.fighterSide = fighterSide;
   self.ctx = canvasElement.getContext('2d');
   self.x = 0;
   self.y = self.canvasHeight - self.size;
@@ -15,10 +17,20 @@ function Player(canvasElement, canvasHeight, canvasWidth, side) {
     self.x = 0;
   } else if (self.side === 'right') {
     self.x = self.canvasWidth - self.size;
-
   }
- // self.canvasY = y;
+
 };
+
+Player.prototype.initialPosition = function() {
+  
+  if (self.side === 'left') {
+    self.x = 0;
+  } else if (self.side === 'right') {
+    self.x = self.canvasWidth - self.size;
+  }
+
+
+}
 
 Player.prototype.update = function() {
   var self = this;
@@ -31,6 +43,13 @@ Player.prototype.update = function() {
     self.x = self.canvasWidth - self.size;
     self.x = (self.canvasWidth - self.size) - self.vel*10;
   }
+  // experimental ::: borrar también de los argumentos del new Player y el Constructor Player
+  // if (self.fighterSide === 'fighter-left' && self.strength >= 9) {
+  //   self.x += 50
+  // }
+  // else if (self.fighterSide === 'fighter-right' && self.strength >= 9) {
+  //   self.x -= 50
+  // }
 }
 
 
@@ -38,14 +57,20 @@ Player.prototype.render = function() {
   var self = this;
 
   if (self.side === 'left') {
-    self.ctx.fillStyle = 'white';
+    var img = new Image();
+    img.src = "../go go godzilla!/images/godzilla-tren-limpio-amarillo.png"
+    self.ctx.drawImage(img, 0, 0, 486,350, self.x, self.y - 100, 486, 350 )
+  //  self.ctx.fillStyle = 'white';
   }
 
   else if (self.side === 'right') {
-    self.ctx.fillStyle = 'red';
+    var img = new Image();
+    img.src = "../go go godzilla!/images/gamera-amarillo.png"
+    self.ctx.drawImage(img, 0, 0, 348,251, self.x, self.y, 348, 251 )
+  //  self.ctx.fillStyle = 'red';
   }
 
-  self.ctx.fillRect(self.x, self.y, self.size, self.size);
+  //self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }
 
 Player.prototype.checkCollision = function(object) {
