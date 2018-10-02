@@ -56,9 +56,23 @@ function main() {
 function buildControls() {
   controlsElement = buildDom(`
   <main class="splash container">
-    <h1 class="splash__title">Go Go Godzilla!</h1>
-    <h2>History</h2>
-    <p>Yesterday Godzilla was partying with Gamera, it was a great Saturday night. Boozing around, playing billard, going from one pub to another. But suddenly something happened! And now they are going to have the fight of their lives! Please, help Godzilla survive! Go Go Godzilla!</p>
+    <div class ="history">
+      <h2>History</h2>
+      <p class="p-history">Yesterday Godzilla was partying with Gamera, it was a great Saturday night. Boozing around, playing billard, going from one pub to another. But suddenly Godzilla turned crazy just as Rottweilers do and now they are having the fight of their lives! Go Go Godzilla!</p>
+    </div>
+    <h2 class="controls-title">Controls</h2>
+    <div class ="controls">
+      <div class ="controls-godzilla">
+        <p>Godzilla</p>
+        <p>Fight : Arrow Left</p>
+        <p>Scream : 0</p>
+      </div>
+      <div class="controls-gamera">
+        <p>Gamera</p>
+        <p>Fight : Arrow Right</p>
+        <p>Scream : 1</p>
+      </div>
+    </div>
     <button class="button back-to-start">Back</button>
   </main>
   `)
@@ -100,12 +114,12 @@ var handleGameoverClick = function() {
 function buildGameover() {
   gameoverElement = buildDom(`
   <main class="gameover container">
-  <h1>Game over</h1>
+  <h1>Game Over</h1>
   <p>Godzilla score: <span class="godzilla-score"></span></p>
   <p>Godzilla coolness: <span class="godzilla-coolness"></span></p>
   <p>Gamera score: <span class="gamera-score"></span></p>
   <p>Gamera coolness: <span class="gamera-coolness"></span></p>
-  <button>Restart</button>
+  <button class="button restart">Restart</button>
   </main>
   `);
   mainContainerElement.appendChild(gameoverElement);

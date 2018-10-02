@@ -15,17 +15,17 @@ Game.prototype._init = function() {
     <main class="game container">
       <header class="game__header">
         <div class="godzilla-div">
-          <span class="godzilla">Godzilla</span>
+          <span class="godzilla">GODZILLA  ||</span>
           <span class="score">score:</span>
           <span class="score-value"></span>
-          <span class="coolness">coolness:</span>
+          <span class="coolness"> ||  coolness:</span>
           <span class="coolness-value"><span>
         </div>
         <div class="gamera-div">
-          <span class="gamera">Gamera</span>
+          <span class="gamera">GAMERA  ||</span>
           <span class="gscore">score:</span>
           <span class="gscore-value"></span>
-          <span class="gcoolness">coolness:</span>
+          <span class="gcoolness">||  coolness:</span>
           <span class="gcoolness-value"></span>
         </div>
       </header>
@@ -272,16 +272,20 @@ Game.prototype._renderAll = function() {
   Game.prototype._rounds = function () {
     var self = this;
     
-    if (self.gamera.x > self.canvasElement.width - self.gamera.size) {
+    if (self.gamera.x > self.canvasElement.width /*- self.gamera.size*/) {
       self.godzilla.score = 1;
+      var audioGamera = new Audio('./sounds/gamera-scream.wav')
+      audioGamera.play()
       self.round++;
    
 
       console.log('Round = ' + self.round)
     }
 
-    else if (self.godzilla.x + self.godzilla.size < 0) {
+    else if (self.godzilla.x /* self.godzilla.size  */ < 0 - self.godzilla.size) {
       self.gamera.score = 1;
+      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto.wav')
+      audioGodzilla.play()
       self.round++;
     }
   }
