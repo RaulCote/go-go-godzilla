@@ -59,7 +59,7 @@ Game.prototype._init = function() {
 
   self.ctx = self.canvasElement.getContext('2d');  
   
-  self.soundtrack = new Audio('../go go godzilla!/sounds/soundtrack-limpio.mp3');
+  self.soundtrack = new Audio('./sounds/soundtrack-limpio.mp3');
   self.soundtrack.play();
   self.soundtrack.currentTime = 0;
 
@@ -190,13 +190,13 @@ Game.prototype._screams = function() {
   self.screamKey = function(evt) {
     if (evt.key === "0") {
       console.log('hey')
-      var audioGodzilla = new Audio('../go go godzilla!/sounds/godzilla-scream-corto.wav')
+      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto.wav')
       audioGodzilla.play()
       self.godzilla.coolness += 100
     }
 
     else if (evt.key === "1") {
-      var audioGamera = new Audio('../go go godzilla!/sounds/gamera-scream.wav')
+      var audioGamera = new Audio('./sounds/gamera-scream.wav')
       audioGamera.play()
       self.gamera.coolness += 100
     }

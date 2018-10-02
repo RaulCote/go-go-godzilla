@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 
 canvas {
   border: 10px solid #ffe400;
-  background-image: url('../go\ go\ godzilla!/images/background-fui.jpg');
+  background-image: url('./images/background-fui.jpg');
   background-size: 100%;
   background-position: bottom center;
 }

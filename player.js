@@ -58,14 +58,14 @@ Player.prototype.render = function() {
 
   if (self.side === 'left') {
     var img = new Image();
-    img.src = "../go go godzilla!/images/godzilla-tren-limpio-amarillo.png"
+    img.src = "./images/godzilla-tren-limpio-amarillo.png"
     self.ctx.drawImage(img, 0, 0, 486,350, self.x, self.y - 100, 486, 350 )
   //  self.ctx.fillStyle = 'white';
   }
 
   else if (self.side === 'right') {
     var img = new Image();
-    img.src = "../go go godzilla!/images/gamera-amarillo.png"
+    img.src = "./images/gamera-amarillo.png"
     self.ctx.drawImage(img, 0, 0, 348,251, self.x, self.y, 348, 251 )
   //  self.ctx.fillStyle = 'red';
   }
