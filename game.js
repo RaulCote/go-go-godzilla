@@ -8,6 +8,7 @@ function Game(parent) {
   self._startLoop();
 }
 
+////////////////START POINT ::: Game HTML design plus some early function launchers. 
 Game.prototype._init = function() {
   var self = this;
 
@@ -68,14 +69,13 @@ Game.prototype._init = function() {
   self._screams();
 }
 
+////////////START LOOP ::: Updates canvas, player positions and checks for Game Over.
 Game.prototype._startLoop = function() {
   var self = this;
               // Son los argumentos del Player(canvasElement, y, x)
   self.godzilla = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'left', 'fighter-left'); 
   self.gamera = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'right', 'fighter-right');
   
-  self.godzilla.score = 0;
-  self.gamera.score = 0;
   self.godzilla.coolness = 0;
   self.gamera.coolness = 0;
   self.round = 1;
@@ -85,44 +85,30 @@ Game.prototype._startLoop = function() {
     self._updateAll();
     self._renderAll();
 
-    if (self.round < 4) {
-      requestAnimationFrame(loop);
-    } else {
+    if (self.godzilla.score > 1 || self.gamera.score > 1) {
       self.onGameOverCallback();
+    } else {
+      requestAnimationFrame(loop);
     }
   }
   requestAnimationFrame(loop);
 }
 
 
-
-
-Game.prototype._moves = function() {
-  var self = this; 
-
-}
-
+////////////PASSIVE MODE ::: Before they get into fight. Movement behavior.
 Game.prototype._setupEventListener = function () {
   var self = this;
-
-  // document.removeEventListener('keyup', self.fightKeyDown)
-  // document.removeEventListener('keydown', self.fightKeyDown)
 
   self.handleKeyDown = function(evt) {
     if (evt.key === "ArrowLeft" && self.godzilla.push === 0) {
       self.godzilla.vel++;
       console.log(self.godzilla.x + ' vel is going Up! IM GODZILLLLA!!!!')
-      // self.godzilla.x = self.godzilla.vel*10
-      // self.round = self.godzilla.vel // PRUEBA PARA GAME OVER
       self.godzilla.push = 1;
     }
     else if (evt.key === "ArrowRight" && self.gamera.push === 0) {
       self.gamera.vel++;
-      // self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
-      // console.log(self.gamera.vel)
       self.gamera.push = 1
     }
-
   };
 
   self.handleKeyUp = function(evt) {
@@ -139,7 +125,7 @@ Game.prototype._setupEventListener = function () {
    document.addEventListener('keyup', self.handleKeyUp);
 }
 
-
+//////////// FIGHT MODE ::: When players collision change the movements behavior.
 Game.prototype._fightMode = function() {
   var self = this;
   document.removeEventListener('keydown', self.handleKeyDown);
@@ -175,6 +161,7 @@ Game.prototype._fightMode = function() {
     document.addEventListener('keyup', self.fightKeyUp)
   };
 
+  /////////////  PLAYER SOUNDS ::: Controlled with keyboard. Give coolness points.
 Game.prototype._screams = function() {
   var self = this;
 
@@ -196,13 +183,10 @@ Game.prototype._screams = function() {
     document.addEventListener('keydown', self.screamKey)
 }
 
-
+/////////////// UPDATE ::: Checks if there are collisions
 Game.prototype._updateAll = function() {
   var self = this;
 
-  // self.godzilla.x = self.godzilla.vel*10
-
-  //self.gamera.x = (self.canvasElement.width - self.gamera.size) - self.gamera.vel*10
   self._rounds();
   self._checkAllCollision();
   
@@ -212,6 +196,7 @@ Game.prototype._updateAll = function() {
   }
 }
 
+////////////// RENDER ::: UI and Players
 Game.prototype._renderAll = function() {
   var self = this;
   self._updateUI();
@@ -219,23 +204,22 @@ Game.prototype._renderAll = function() {
   self.gamera.render();
 }
 
+////////////// CLEAR ::: Resets the canvas.
 Game.prototype._clearAll = function ()  {
   var self = this;
   self.ctx.clearRect(0, 0, self.width, self.height);
 }
 
+////////////// COLLISIONS ::: Between players, most logic is on player.js itself. This is the logic for changing between passive mode and fight mode.
 Game.prototype._checkAllCollision = function() {
   var self = this;
   
   if (self.godzilla.checkCollision(self.gamera) && !self.isFightMode) {
     self._fightMode();
   }
-  // } else {
-  //   self._moves();
-  // }
 }
 
-
+//////////////  DEADS ::: Logic when a player touch the screen border (ie: next round, introducing sound and update scores)
 Game.prototype._rounds = function () {
   var self = this;
   
@@ -243,22 +227,18 @@ Game.prototype._rounds = function () {
     self.godzilla.score++;
     var audioGamera = new Audio('./sounds/gamera-scream.wav')
     audioGamera.play()
-    // self.round++;
     self._nextRound();
-  
-
-    console.log('Round = ' + self.round)
   }
 
   else if (self.godzilla.x /* self.godzilla.size  */ < 0 - self.godzilla.size) {
     self.gamera.score++;
     var audioGodzilla = new Audio('./sounds/godzilla-scream-corto-2.mp3')
     audioGodzilla.play()
-    // self.round++;
     self._nextRound();
   }
 }
 
+//////////////// NEXT ROUND RESET :: Some properties come from Player.js
 Game.prototype._nextRound = function() {
   var self = this;
   console.log('Round sin sumar = ' + self.round)
@@ -268,18 +248,11 @@ Game.prototype._nextRound = function() {
   document.removeEventListener('keydown', self.fightKeyDown)
   self.godzilla.resetRound();
   self.gamera.resetRound();
-  // PARECE QUE FUNCIONA - por ahora dejamos por si
-  //self.godzilla.push = 0;
-  //self.gamera.push = 0;
-  //self.godzilla.x = 0
-  //self.gamera.x = self.canvasElement.width - self.gamera.size;
-  //self.godzilla.vel = 0;
-  //self.gamera.vel = 0;
   self.isFightMode = false;
   self._setupEventListener();
 }
 
-  
+//////////////// UPDATES GAME SCORES (ON GAME SCREEN)
 Game.prototype._updateUI = function() {
   var self = this;
   
@@ -305,8 +278,6 @@ Game.prototype.destroy = function() {
   self.gameElement.remove();
   self.soundtrack.pause();
   document.removeEventListener('keydown', self.screamKey)
-  // document.removeEventListener('keyup', self.fightKeyDown)
-  // document.removeEventListener('keydown', self.fightKeyDown)
 }
 
  

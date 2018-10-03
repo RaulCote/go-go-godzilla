@@ -6,7 +6,7 @@ function Player(canvasElement, canvasHeight, canvasWidth, side, fighterSide) {
   self.vel = 0;
   self.push = 0;
   self.strength = 0;
-  self.fighting = 0;
+  self.score = 0;
   self.side = side;
   self.fighterSide = fighterSide;
   self.ctx = canvasElement.getContext('2d');
@@ -33,7 +33,7 @@ Player.prototype.initialPosition = function() {
 
 Player.prototype.resetRound = function() {
   var self = this;
-  
+
   self.vel = 0;
   self.push = 0;
   self.x = 0;
