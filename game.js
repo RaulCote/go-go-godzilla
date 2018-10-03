@@ -59,7 +59,7 @@ Game.prototype._init = function() {
 
   self.ctx = self.canvasElement.getContext('2d');  
   
-  self.soundtrack = new Audio('./sounds/soundtrack-limpio.mp3');
+  self.soundtrack = new Audio('./sounds/soundtrack-limpio-2.mp3');
   self.soundtrack.play();
   self.soundtrack.currentTime = 0;
 
@@ -317,8 +317,8 @@ Game.prototype.onOver = function(callback) {
 
 Game.prototype.destroy = function() {
   var self = this;
-  self.soundtrack.pause();
   self.gameElement.remove();
+  self.soundtrack.pause();
   document.removeEventListener('keydown', self.screamKey)
   document.removeEventListener('keyup', self.fightKeyDown)
   document.removeEventListener('keydown', self.fightKeyDown)
