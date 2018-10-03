@@ -190,7 +190,7 @@ Game.prototype._screams = function() {
   self.screamKey = function(evt) {
     if (evt.key === "0") {
       console.log('hey')
-      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto.wav')
+      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto-2.mp3')
       audioGodzilla.play()
       self.godzilla.coolness += 100
     }
@@ -284,7 +284,7 @@ Game.prototype._renderAll = function() {
 
     else if (self.godzilla.x /* self.godzilla.size  */ < 0 - self.godzilla.size) {
       self.gamera.score = 1;
-      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto.wav')
+      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto-2.mp3')
       audioGodzilla.play()
       self.round++;
     }
