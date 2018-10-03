@@ -22,13 +22,22 @@ function Player(canvasElement, canvasHeight, canvasWidth, side, fighterSide) {
 };
 
 Player.prototype.initialPosition = function() {
-  
+  var self = this; 
+
   if (self.side === 'left') {
     self.x = 0;
   } else if (self.side === 'right') {
     self.x = self.canvasWidth - self.size;
   }
+}
 
+Player.prototype.resetRound = function() {
+  var self = this;
+  
+  self.vel = 0;
+  self.push = 0;
+  self.x = 0;
+  self.initialPosition();
 
 }
 
@@ -43,15 +52,7 @@ Player.prototype.update = function() {
     self.x = self.canvasWidth - self.size;
     self.x = (self.canvasWidth - self.size) - self.vel*10;
   }
-  // experimental ::: borrar también de los argumentos del new Player y el Constructor Player
-  // if (self.fighterSide === 'fighter-left' && self.strength >= 9) {
-  //   self.x += 50
-  // }
-  // else if (self.fighterSide === 'fighter-right' && self.strength >= 9) {
-  //   self.x -= 50
-  // }
 }
-
 
 Player.prototype.render = function() {
   var self = this;

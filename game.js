@@ -21,6 +21,10 @@ Game.prototype._init = function() {
           <span class="coolness"> ||  coolness:</span>
           <span class="coolness-value"><span>
         </div>
+        <div class="rounds">
+          <span class="round">Round:</span>
+          <span class="round-value"></span>
+        </div>
         <div class="gamera-div">
           <span class="gamera">GAMERA  ||</span>
           <span class="gscore">score:</span>
@@ -45,12 +49,9 @@ Game.prototype._init = function() {
   self.gameraScoreElement = document.querySelector('.gscore-value');
   self.gameraCoolnessElement = document.querySelector('.gcoolness-value');
 
-  // self.roundElement = document.querySelector('.round-value');
+  self.roundElement = document.querySelector('.round-value');
 
-//   <div class="rounds">
-//   <span class="round">Round:</span>
-//   <span class="round-value"></span>
-// </div>
+
   self.width = self.canvasParentElement.clientWidth;
   self.height = self.canvasParentElement.clientHeight;
 
@@ -73,33 +74,23 @@ Game.prototype._startLoop = function() {
   self.godzilla = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'left', 'fighter-left'); 
   self.gamera = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'right', 'fighter-right');
   
-  // self.godzilla.side = 'left';
-  // self.gamera.side = 'right';
   self.godzilla.score = 0;
   self.gamera.score = 0;
   self.godzilla.coolness = 0;
   self.gamera.coolness = 0;
   self.round = 1;
 
-  //    ---- Ya pasado a Player()
-  // self.godzilla.y = self.canvasElement.height - self.godzilla.size
-  // self.gamera.x = self.canvasElement.width - self.gamera.size
-  // self.gamera.y = self.canvasElement.height - self.gamera.size
-
-  // self._moves();
-
   function loop() {
     self._clearAll();
     self._updateAll();
     self._renderAll();
 
-    if (self.round <= 2) {
+    if (self.round < 4) {
       requestAnimationFrame(loop);
     } else {
       self.onGameOverCallback();
     }
   }
-  
   requestAnimationFrame(loop);
 }
 
@@ -108,18 +99,19 @@ Game.prototype._startLoop = function() {
 
 Game.prototype._moves = function() {
   var self = this; 
- // console.log('Aquí estoy tú')
-  //Godzilla & Gamera keyboard input//
 
 }
 
 Game.prototype._setupEventListener = function () {
   var self = this;
 
+  // document.removeEventListener('keyup', self.fightKeyDown)
+  // document.removeEventListener('keydown', self.fightKeyDown)
+
   self.handleKeyDown = function(evt) {
     if (evt.key === "ArrowLeft" && self.godzilla.push === 0) {
       self.godzilla.vel++;
-      // console.log(self.godzilla.vel + ' vel is going Up! IM GODZILLLLA!!!!')
+      console.log(self.godzilla.x + ' vel is going Up! IM GODZILLLLA!!!!')
       // self.godzilla.x = self.godzilla.vel*10
       // self.round = self.godzilla.vel // PRUEBA PARA GAME OVER
       self.godzilla.push = 1;
@@ -169,20 +161,19 @@ Game.prototype._fightMode = function() {
        self.gamera.push = 1;
      }
    }
-
-  document.addEventListener('keydown', self.fightKeyDown)
-
-  self.fightKeyUp = function(evt) {
-    if (evt.key === "ArrowLeft" && self.godzilla.push ===1) {
-      self.godzilla.push = 0;
+   
+   self.fightKeyUp = function(evt) {
+     if (evt.key === "ArrowLeft" && self.godzilla.push ===1) {
+       self.godzilla.push = 0;
+      }
+      else if (evt.key === "ArrowRight" && self.gamera.push ===1) {
+        self.gamera.push = 0;
+      }
     }
-    else if (evt.key === "ArrowRight" && self.gamera.push ===1) {
-      self.gamera.push = 0;
-    }
-  }
-  document.addEventListener('keyup', self.fightKeyUp)
 
-};
+    document.addEventListener('keydown', self.fightKeyDown)
+    document.addEventListener('keyup', self.fightKeyUp)
+  };
 
 Game.prototype._screams = function() {
   var self = this;
@@ -226,85 +217,79 @@ Game.prototype._renderAll = function() {
   self._updateUI();
   self.godzilla.render();
   self.gamera.render();
+}
 
-    // ---- Ya pasado a Player()
-    // self.godzilla.ctx = self.canvasElement.getContext('2d');
-    // self.godzilla.ctx.fillStyle = 'white';
-    // self.godzilla.ctx.fillRect(self.godzilla.x, self.godzilla.y, self.godzilla.size, self.godzilla.size);
-    
-    // ---- Ya pasado a Player()
-    // self.gamera.ctx = self.canvasElement.getContext('2d');
-    // self.gamera.ctx.fillStyle = 'red';
-    // self.gamera.ctx.fillRect(self.gamera.x, self.gamera.y, self.gamera.size, self.gamera.size);
+Game.prototype._clearAll = function ()  {
+  var self = this;
+  self.ctx.clearRect(0, 0, self.width, self.height);
+}
+
+Game.prototype._checkAllCollision = function() {
+  var self = this;
+  
+  if (self.godzilla.checkCollision(self.gamera) && !self.isFightMode) {
+    self._fightMode();
+  }
+  // } else {
+  //   self._moves();
+  // }
+}
+
+
+Game.prototype._rounds = function () {
+  var self = this;
+  
+  if (self.gamera.x > self.canvasElement.width /*- self.gamera.size*/) {
+    self.godzilla.score++;
+    var audioGamera = new Audio('./sounds/gamera-scream.wav')
+    audioGamera.play()
+    // self.round++;
+    self._nextRound();
+  
+
+    console.log('Round = ' + self.round)
   }
 
-  Game.prototype._clearAll = function ()  {
-    var self = this;
-    // Recuerda, en _renderAll funciona con Godzilla pero todavía no actualiza, aquí no, aquí como self.ctx.clearRect
-    self.ctx.clearRect(0, 0, self.width, self.height);
+  else if (self.godzilla.x /* self.godzilla.size  */ < 0 - self.godzilla.size) {
+    self.gamera.score++;
+    var audioGodzilla = new Audio('./sounds/godzilla-scream-corto-2.mp3')
+    audioGodzilla.play()
+    // self.round++;
+    self._nextRound();
   }
+}
 
-  Game.prototype._checkAllCollision = function() {
-    var self = this;
-    
-    if (self.godzilla.checkCollision(self.gamera)) {
-
-     // self.godzilla.checkCollision();
-      self._fightMode();
-     //console.log('godzi se choca')
-    } else {
-      self._moves();
-    }
-
-    // --- Ya está en Player.
-    //  var crashRight = self.godzilla.x + self.godzilla.size > self.gamera.x;
-    //  var crashBottom = self.godzilla.y + self.godzilla.size > self.gamera.y;
-    //  var crashTop = self.godzilla.y < self.gamera.y + self.gamera.size;
-    //  var crashLeft = self.godzilla.x < self.gamera.x + self.gamera.size;
-
-    //  if (crashLeft & crashRight & crashTop & crashBottom) {
-    //    console.log('godzilla collision!')
-    //  }
-
-  }
-
-
-  Game.prototype._rounds = function () {
-    var self = this;
-    
-    if (self.gamera.x > self.canvasElement.width /*- self.gamera.size*/) {
-      self.godzilla.score = 1;
-      var audioGamera = new Audio('./sounds/gamera-scream.wav')
-      audioGamera.play()
-      self.round++;
-   
-
-      console.log('Round = ' + self.round)
-    }
-
-    else if (self.godzilla.x /* self.godzilla.size  */ < 0 - self.godzilla.size) {
-      self.gamera.score = 1;
-      var audioGodzilla = new Audio('./sounds/godzilla-scream-corto-2.mp3')
-      audioGodzilla.play()
-      self.round++;
-    }
-  }
+Game.prototype._nextRound = function() {
+  var self = this;
+  console.log('Round sin sumar = ' + self.round)
+  self.round++;
+  console.log('Round ya sumado = ' + self.round )
+  document.removeEventListener('keyup', self.fightKeyDown)
+  document.removeEventListener('keydown', self.fightKeyDown)
+  self.godzilla.resetRound();
+  self.gamera.resetRound();
+  // PARECE QUE FUNCIONA - por ahora dejamos por si
+  //self.godzilla.push = 0;
+  //self.gamera.push = 0;
+  //self.godzilla.x = 0
+  //self.gamera.x = self.canvasElement.width - self.gamera.size;
+  //self.godzilla.vel = 0;
+  //self.gamera.vel = 0;
+  self.isFightMode = false;
+  self._setupEventListener();
+}
 
   
-  Game.prototype._updateUI = function() {
-    var self = this;
-    
-   // self.roundElement.innerText = self.round;
-    self.godzillaScoreElement.innerText = self.godzilla.score;
-    self.godzillaCoolnessElement.innerText = self.godzilla.coolness;
-    self.gameraScoreElement.innerText = self.gamera.score;
-    self.gameraCoolnessElement.innerText = self.gamera.coolness;
+Game.prototype._updateUI = function() {
+  var self = this;
+  
+  self.roundElement.innerText = self.round;
+  self.godzillaScoreElement.innerText = self.godzilla.score;
+  self.godzillaCoolnessElement.innerText = self.godzilla.coolness;
+  self.gameraScoreElement.innerText = self.gamera.score;
+  self.gameraCoolnessElement.innerText = self.gamera.coolness;
 
-  }
-
-
-
-
+}
 
 //////////////// GAME OVER
 
@@ -320,8 +305,8 @@ Game.prototype.destroy = function() {
   self.gameElement.remove();
   self.soundtrack.pause();
   document.removeEventListener('keydown', self.screamKey)
-  document.removeEventListener('keyup', self.fightKeyDown)
-  document.removeEventListener('keydown', self.fightKeyDown)
+  // document.removeEventListener('keyup', self.fightKeyDown)
+  // document.removeEventListener('keydown', self.fightKeyDown)
 }
 
  

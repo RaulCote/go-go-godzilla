@@ -148,8 +148,3 @@ buildSplash();
 }
 
 document.addEventListener('DOMContentLoaded', main);
-
-
-// function destroyGame() {}
-// function buildGameOver() {}
-// function destroyGameOver() {}
