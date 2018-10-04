@@ -76,8 +76,9 @@ Game.prototype._startLoop = function() {
   self.godzilla = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'left', 'fighter-left'); 
   self.gamera = new Player(self.canvasElement, self.canvasElement.height, self.canvasElement.width, 'right', 'fighter-right');
   
-  self.godzilla.coolness = 0;
-  self.gamera.coolness = 0;
+  self.godzilla.initialPosition();
+  self.gamera.initialPosition();
+
   self.round = 1;
 
   function loop() {
@@ -135,13 +136,11 @@ Game.prototype._fightMode = function() {
 
   self.fightKeyDown = function(evt) {
      if (evt.key === "ArrowLeft" && self.godzilla.push === 0) {
-       self.godzilla.strength++;
        self.godzilla.x+=100;
        self.gamera.x+=100;
        self.godzilla.push = 1;
      }
      else if (evt.key === "ArrowRight" && self.gamera.push === 0) {
-       self.gamera.strength++;
        self.godzilla.x-=100;
        self.gamera.x-=100;
        self.gamera.push = 1;

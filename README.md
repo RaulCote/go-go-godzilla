@@ -19,6 +19,8 @@ The MVP version will be the concept itself working. One object pushing the other
 - Design
 - Music
 - Player sounds
+- Rounds
+- Different Game Over screens
 
 ## Data structure
 ### main.js
@@ -43,22 +45,23 @@ Player {
   self.size
   self.vel 
   self.side
+  self.score
+  self.coolness
+  self.ctx
 }
 
-Player.prototype.update();
-Player.prototype.render();
-Player.prototype.moves();
-Player.prototype.isDead();
-Player.prototype.scream();
+Player.prototype.initialPosition;
+Player.prototype.resetRound;
+Player.prototype.update;
+Player.prototype.render;
+Player.prototype.checkCollision;
 
 ```
 
 ### game.js
 ```javascript
 Game() {
-  self.score
-  self.coolness
-  self.rounds
+  self.round
 }
 
 Game.prototype._init
@@ -67,11 +70,16 @@ Game.prototype._startLoop {
   self._updateAll
   self._renderAll
 }
+Game.prototype._setupEventListener
+Game.prototype._fightMode
+Game.prototype._screams
 Game.prototype._updateAll
 Game.prototype._renderAll
 Game.prototype._clearAll
 Game.prototype._checkAllCollision
-Game.prototype._isPlayerAlive
+Game.prototype._rounds
+Game.prototype._nextRound
+Game.prototype._updateUI
 Game.prototype.onOver
 Game.prototype.destroy
 
@@ -111,20 +119,31 @@ Task definition in order of priority
 - Main - addEventListener to Controls Button
 - Main - destroyControls
 - Game - buildDOM
+- Main - GameOver
+- Main - Destroy Game
+- Main - GameOver Restart
+- Player - Create
+- Player - Functions
+- Game - Create Player
+- Game - Loop
+- Game - Clear
+- Game - Canvas
+- Player - Collisions
+- Game - Collisions
+- Game - Fight Mode
+- Game - Rounds
+- Game - Game Over
+
 
 ## Links
-
-
-### Trello
-[Link url](https://trello.com)
 
 
 ### Git
 URls for the project repo and deploy
 [Link Repo](https://github.com/RaulCote/go-go-godzilla)
-[Link Deploy](http://github.com)
+[Link Deploy](https://raulcote.github.io/go-go-godzilla/)
 
 
 ### Slides
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](https://slides.com/raulcote/raul-cote-utor/fullscreen)
